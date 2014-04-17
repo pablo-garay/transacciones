@@ -1,0 +1,19 @@
+<?php
+namespace User\Model;
+
+use Zend\Db\TableGateway\AbstractTableGateway;
+
+class User extends AbstractTableGateway
+{
+	
+	public function __construct($adapter)
+	{
+
+		$this->table = 'users';
+		$this->featureSet = new Feature\FeatureSet();
+		$this->featureSet->addFeature(new Feature\GlobalAdapterFeature());
+		$this->initialize();
+
+	}
+}
+
