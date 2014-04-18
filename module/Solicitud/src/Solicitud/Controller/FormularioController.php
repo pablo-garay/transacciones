@@ -9,9 +9,9 @@
 
 namespace Solicitud\Controller;
 
-use Solicitud\Form\Solicitud as SolicitudForm;
-
+use Solicitud\Form\SolicitudExtraordinario as ExtraordinarioForm;
 use Zend\Mvc\Controller\AbstractActionController;
+use Solicitud\Service\Factory\Database as DatabaseAdapter;
 
 class FormularioController extends AbstractActionController
 {
@@ -22,7 +22,12 @@ class FormularioController extends AbstractActionController
 
     public function createAction()
     {
-        $form = new SolicitudForm();
+    	//instanciar la clase cuyo metodo nos devuelve el adaptador de nuestra bd
+    	$database = new DatabaseAdapter();
+    	//llamamos al metodo que nos devuelve el adaptador de bd
+    	$dbAdapter = $database->createService($this->getServiceLocator());
+
+        $form = new ExtraordinarioForm($dbAdapter);
         if($this->getRequest()->isPost()) {
             $data = array_merge_recursive(
                 $this->getRequest()->getPost()->toArray(),

@@ -37,6 +37,10 @@ class Module implements AutoloaderProviderInterface
 
     public function onBootstrap(MvcEvent $e)
     {
+    	$services = $e->getApplication()->getServiceManager();
+    	$dbAdapter = $services->get('database');
+    	\Zend\Db\TableGateway\Feature\GlobalAdapterFeature::setStaticAdapter($dbAdapter);
+
         // You may not need to do this if you're doing it elsewhere in your
         // application
         $eventManager        = $e->getApplication()->getEventManager();

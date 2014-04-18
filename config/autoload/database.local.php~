@@ -5,9 +5,9 @@ return array (
 	
 		'driver' => 'Pdo_Pgsql',
 	
-		'database' => 'tc', // generally required the name of the database (schema)
-		'username' => 'tc-db-username', // generally required the connection username
-		'password' => 'tc-db-password', // generally required the connection password
+		'database' => 'test', // generally required the name of the database (schema)
+		'username' => 'test', // generally required the connection username
+		'password' => 'test', // generally required the connection password
 	
 		//not generally required the IP address or hostname to connect to
 	

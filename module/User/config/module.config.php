@@ -60,7 +60,7 @@ return array(
 	),
 	'table-gateway' => array(
 		'map' => array(
-			'users' => 'User\Model\User',
+			'usuarios' => 'User\Model\User',
 		)
 	),
 

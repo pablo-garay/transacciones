@@ -28,38 +28,13 @@ class User extends Form
             'attributes' => array(
             // These are the attributes that are passed directly to the HTML element
                 'type' => 'email', // Ex: <input type="email"
-                'required' => true, // Ex: <input required="true"
+                // 'required' => true, // Ex: <input required="true"
                 'placeholder' => 'Su dirección de email...', // HTM5 placeholder attribute
             )
         ));
 
-
         $this->add(array(
-            'name' => 'password',
-            'type' => 'Zend\Form\Element\Password',
-            'attributes' => array(
-                'placeholder' => 'Indique contraseña aquí...',
-                'required' => 'required',
-            ),
-            'options' => array(
-                'label' => 'Contraseña',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'password_verify',
-            'type' => 'Zend\Form\Element\Password',
-            'attributes' => array(
-                'placeholder' => 'Confirme contraseña aquí...',
-                'required' => 'required',
-            ),
-            'options' => array(
-                'label' => 'Verifique contraseña',
-            ),
-        ));
-
-        $this->add(array(
-        		'name' => 'name',
+        		'name' => 'nombres',
         		'type' => 'Zend\Form\Element\Text',
         		'attributes' => array(
         				'placeholder' => 'Escriba su nombre...',
@@ -71,7 +46,7 @@ class User extends Form
         ));
 
         $this->add(array(
-        		'name' => 'name',
+        		'name' => 'apellidos',
         		'type' => 'Zend\Form\Element\Text',
         		'attributes' => array(
         				'placeholder' => 'Escriba su apellido...',
@@ -83,7 +58,47 @@ class User extends Form
         ));
 
         $this->add(array(
-        		'name' => 'phone',
+        		'name' => 'fecha_nacimiento',
+        		'type' => 'Zend\Form\Element\Date',
+        		'attributes' => array(
+        				'placeholder' => 'Fecha de nacimiento...',
+        				'required' => 'required',
+        		),
+        		'options' => array(
+        				'label' => 'Fecha de Nacimiento',
+        		),
+        ));
+
+		$this->add(array(
+				'name' => 'sexo',
+				'type' => 'Zend\Form\Element\Radio',
+				'attributes' => array(
+						'required' => 'required',
+				),
+				'options' => array(
+						'label' => 'Sexo',
+						'value_options' => array(
+								'M' => 'Masculino',
+								'F' => 'Femenino',
+						),
+				),
+
+		));
+
+        $this->add(array(
+        		'name' => 'direccion',
+        		'type' => 'Zend\Form\Element\Text',
+        		'attributes' => array(
+        				'placeholder' => 'Escriba su dirección...',
+        				'required' => 'required',
+        		),
+        		'options' => array(
+        				'label' => 'Dirección',
+        		),
+        ));
+
+        $this->add(array(
+        		'name' => 'telefono',
         		'options' => array(
         				'label' => 'Teléfono'
         		),
@@ -94,6 +109,30 @@ class User extends Form
         				'required' => 'required',
         		        // Below: HTML5 way to specify the allowed characters
         				'pattern'  => '^[\d-/]+$'
+        		),
+        ));
+
+        $this->add(array(
+        		'name' => 'contrasena',
+        		'type' => 'Zend\Form\Element\Password',
+        		'attributes' => array(
+        				'placeholder' => 'Indique contraseña aquí...',
+        				'required' => 'required',
+        		),
+        		'options' => array(
+        				'label' => 'Contraseña',
+        		),
+        ));
+
+        $this->add(array(
+        		'name' => 'contrasena_verify',
+        		'type' => 'Zend\Form\Element\Password',
+        		'attributes' => array(
+        				'placeholder' => 'Confirme contraseña aquí...',
+        				'required' => 'required',
+        		),
+        		'options' => array(
+        				'label' => 'Verifique contraseña',
         		),
         ));
 
@@ -144,7 +183,7 @@ class User extends Form
 									'name' => 'NotEmpty',
 									'options' => array (
 											'messages' => array (
-													'isEmpty' => 'Email address is required'
+													'isEmpty' => 'Se requiere email'
 											)
 									)
 							)
@@ -152,7 +191,7 @@ class User extends Form
 			) ) );
 
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'name',
+					'name' => 'nombres',
 					'filters' => array (
 							array (
 									'name' => 'StripTags'
@@ -166,7 +205,7 @@ class User extends Form
 									'name' => 'NotEmpty',
 									'options' => array (
 											'messages' => array (
-													'isEmpty' => 'Name is required'
+													'isEmpty' => 'Se requiere nombres'
 											)
 									)
 							)
@@ -174,7 +213,87 @@ class User extends Form
 			) ) );
 
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'password',
+					'name' => 'apellidos',
+					'filters' => array (
+							array (
+									'name' => 'StripTags'
+							),
+							array (
+									'name' => 'StringTrim'
+							)
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+									'options' => array (
+											'messages' => array (
+													'isEmpty' => 'Se requiere apellidos'
+											)
+									)
+							)
+					)
+			) ) );
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'fecha_nacimiento',
+					'filters' => array (
+							array ('name' => 'StripTags'),
+							array ('name' => 'StringTrim'),
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+									// @Validar fecha minima
+							)
+					)
+			) ) );
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'sexo',
+					'filters' => array(
+							array ( 'name' => 'StripTags' ),
+							array ( 'name' => 'StringTrim' ),
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+									// @todo validar que sea caracter M o F
+							),
+					)
+			)));
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'direccion',
+					'filters' => array(
+							array ( 'name' => 'StripTags' ),
+							array ( 'name' => 'StringTrim' ),
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+									// @validate que sea Alphanum
+							),
+					)
+			)));
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'telefono',
+					'filters' => array(
+							array ( 'name' => 'digits' ),
+							array ( 'name' => 'stringtrim' ),
+					),
+					'validators' => array (
+							array (
+									'name' => 'regex',
+									'options' => array (
+											'pattern' => '/^[\d-\/]+$/',
+									)
+							),
+					)
+			)));
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'contrasena',
 					'filters' => array (
 							array (
 									'name' => 'StripTags'
@@ -196,7 +315,7 @@ class User extends Form
 			)));
 
 			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'password_verify',
+					'name' => 'contrasena_verify',
 					'filters' => array (
 							array (
 									'name' => 'StripTags'
@@ -209,28 +328,12 @@ class User extends Form
 							array (
 									'name' => 'identical',
 									'options' => array (
-											'token' => 'password'
+											'token' => 'contrasena'
 									)
 							)
 					)
 
 			) ) );
-
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'phone',
-					'filters' => array(
-							array ( 'name' => 'digits' ),
-							array ( 'name' => 'stringtrim' ),
-					),
-					'validators' => array (
-							array (
-									'name' => 'regex',
-									'options' => array (
-											'pattern' => '/^[\d-\/]+$/',
-									)
-							),
-					)
-			)));
 
 			$this->filter = $inputFilter;
 		}

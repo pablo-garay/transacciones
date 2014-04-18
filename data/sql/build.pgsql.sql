@@ -1,8 +1,7 @@
 ﻿/*==============================================================*/
 /* DBMS name:      PostgreSQL 8                                 */
-/* Created on:     4/18/2014 4:50:10 PM                         */
+/* Created on:     4/18/2014 6:26:34 PM                         */
 /*==============================================================*/
-
 
 /*==============================================================*/
 /* Table: ALUMNOS                                               */
@@ -338,14 +337,14 @@ ROL
 create table SOLICITUDES (
    SOLICITUD            SERIAL not null,
    USUARIO_SOLICITANTE  INT4                 not null,
-   MESA_ENTRADA         CHAR(30)             not null,
+   MESA_ENTRADA         INT4                 not null,
    CARRERA              CHAR(80)             not null,
    MATERIA              CHAR(80)             null,
    FECHA_SOLICITADA     DATE                 not null,
    ESTADO_SOLICITUD     CHAR(6)              null
       constraint CKC_ESTADO_SOLICITUD_SOLICITU check (ESTADO_SOLICITUD is null or (ESTADO_SOLICITUD in ('APR','REC','ANUL','NUEVO','PEND','CANCEL'))),
    ETAPA_ACTUAL         CHAR(6)              not null
-      constraint CKC_ETAPA_ACTUAL_SOLICITU check (ETAPA_ACTUAL in ('DEL_DE','DEL_DA','DEL_DD','DEL_SA','DEL_SD','DEL_SG','RCD','TRM')),
+      constraint CKC_ETAPA_ACTUAL_SOLICITU check (ETAPA_ACTUAL in ('DEL_DE','DEL_DA','DEL_DD','DEL_SA','DEL_SD','DEL_SG','RCDA','FINAL')),
    OBSERVACIONES        TEXT                 null,
    RESULTADO_REQUISITOS CHAR(13)             not null
       constraint CKC_RESULTADO_REQUISI_SOLICITU check (RESULTADO_REQUISITOS in ('CUMPLE','NO_CUMPLE','NO_VERIFICADO','FALTANTE')),
@@ -484,7 +483,7 @@ SOLICITUD
 create table SOLICITUD_DE_CONVALIDACION_DE_MATERIAS (
    SOLICITUD            INT4                 not null,
    UNIVERSIDAD_ORIGEN   CHAR(40)             not null,
-   DIRECCION_UNIVERSIDAD_ORIGEN CHAR(120)            not null,
+   DIRECCION_UNIVERSIDAD_ORIGEN VARCHAR(120)         not null,
    TELEFONO_UNIVERSIDAD_ORIGEN VARCHAR(30)          not null,
    EMAIL_UNIVERSIDAD_ORIGEN CHAR(255)            not null,
    CARRERA_CURSADA_UNIVERSIDAD_ORIGEN CHAR(80)             not null,
@@ -642,7 +641,7 @@ SOLICITUD
 create table SOLICITUD_DE_PASANTIA (
    SOLICITUD            INT4                 not null,
    LUGAR                CHAR(80)             not null,
-   DIRECCION            CHAR(120)            not null,
+   DIRECCION            VARCHAR(120)         not null,
    TELEFONO             VARCHAR(30)          not null,
    CORREO_ELECTRONICO   CHAR(255)            null,
    MOTIVO               TEXT                 not null,
@@ -875,8 +874,9 @@ create table USUARIOS (
    NOMBRES              VARCHAR(80)          not null,
    APELLIDOS            VARCHAR(80)          not null,
    FECHA_NACIMIENTO     DATE                 not null,
-   SEXO                 CHAR(1)              not null,
-   DIRECCION            CHAR(120)            not null,
+   SEXO                 CHAR(1)              not null
+      constraint CKC_SEXO_USUARIOS check (SEXO in ('M','F')),
+   DIRECCION            VARCHAR(120)         not null,
    TELEFONO             VARCHAR(30)          not null,
    EMAIL                CHAR(255)            null,
    CONTRASENA           VARCHAR(100)         not null,
@@ -1096,3 +1096,4 @@ alter table TUTORES_POR_TESIS
    add constraint FK_TUTORES__TIENE_TUT_USUARIOS foreign key (USUARIO)
       references USUARIOS (USUARIO)
       on delete restrict on update restrict;
+

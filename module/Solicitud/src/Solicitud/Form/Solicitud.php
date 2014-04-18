@@ -5,10 +5,15 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Factory as InputFactory;
+use Zend\Db\Adapter\AdapterInterface;
 
 class Solicitud extends Form
 {
-	public function __construct($name='user') {
+	protected $dbAdapter;
+
+	//parámetro del constructor: adaptador de la base de datos
+	public function __construct( $name = 'solicitud', AdapterInterface $databaseAdapter) {
+		$this->dbAdapter = $databaseAdapter; //Asignación de nuestro adaptador de base de datos
 		parent::__construct($name);
 
 		$this->setAttribute('method', 'post');
@@ -24,13 +29,17 @@ class Solicitud extends Form
         		// These are the attributes that are passed directly to the HTML element
         				'placeholder' => 'Escriba su nombre...', // HTM5 placeholder attribute
         				'required' => 'required', // Ex: <input required="true"
+        				'value' => $this->getNombres(),
         		),
         		'options' => array(
         				// This is list of options that we can add to the element.
-        				'label' => 'Nombres',
-        				// Label es la etiqueta que aparece antes del campo de formulario
+        				'label' => 'Nombres', // Label es la etiqueta que aparece antes del campo de formulario
         		),
-        ));
+
+        ),
+        		 array (
+                        'priority' => 500,
+                ));
 
         $this->add(array(
         		'name' => 'apellidos',
@@ -38,25 +47,26 @@ class Solicitud extends Form
         		'attributes' => array(
         				'placeholder' => 'Escriba su apellido...',
         				'required' => 'required',
+        				'value' => $this->getApellidos(),
         		),
         		'options' => array(
         				'label' => 'Apellidos',
         		),
-        ));
+
+        ),
+        		 array (
+                        'priority' => 600,
+                ));
 
         $this->add(array(
         		'name' => 'matricula',
         		'type' => 'Zend\Form\Element\Select',
         		'options' => array(
         				'label' => 'Matrícula',
-        				'value_options' => array(
-        						'0' => 'Ninguna',
-        						'1' => 'Materia1',
-        						'2' => 'Materia2',
-        				)
+        				'empty_option' => 'Elija su matricula',
+        				'value_options' => $this->getMatricula(),
         		),
         		'attributes' => array(
-        		        // Below: HTML5 way to specify that the input will be phone number
         		        'placeholder' => 'Elija su matrícula...',
         				'required' => 'required',
         		),
@@ -67,12 +77,7 @@ class Solicitud extends Form
         		'type' => 'Zend\Form\Element\Select',
         		'options' => array(
         				'label' => 'Carrera',
-            		    'value_options' => array(
-                                 '0' => 'Carrera1',
-                                 '1' => 'Carrera2',
-                                 '2' => 'Carrera3',
-                                 '3' => 'Carrera4',
-                         ),
+            		    'value_options' => $this->getCarrera(),
         		),
         		'attributes' => array(
         				// Below: HTML5 way to specify that the input will be phone number
@@ -82,16 +87,20 @@ class Solicitud extends Form
         ));
 
         $this->add(array(
-        		'name' => 'motivo',
-        		'type' => 'Zend\Form\Element\Textarea',
+        		'name' => 'telefono',
+        		'type' => 'Zend\Form\Element\Text',
         		'options' => array(
-        				'label' => 'Motivo'
+        				'label' => 'Teléfono:',
+
         		),
-        		'attributes' => array(
-        				'placeholder' => 'Agregue alguna información adicional aquí...',
-        				'required' => false,
-        		)
+        		'attributes' => array (
+        				'value' => $this->getTelefono(), // @todo getphone
+        				'disabled' => 'disabled'
+        		),
+
         ));
+
+
 
 
         // This is the special code that protects our form beign submitted from automated scripts
@@ -100,15 +109,7 @@ class Solicitud extends Form
             'type' => 'Zend\Form\Element\Csrf',
         ));
 
-        // This is the submit button
-        $this->add(array(
-        		'name' => 'enviar',
-        		'type' => 'Zend\Form\Element\Submit',
-        		'attributes' => array(
-        				'value' => 'Enviar',
-        				'required' => 'false',
-        		),
-        ));
+
 
 	}
 
@@ -117,36 +118,6 @@ class Solicitud extends Form
 		if (! $this->filter) {
 			$inputFilter = new InputFilter();
 			$factory = new InputFactory ();
-
-			$inputFilter->add ( $factory->createInput ( array (
-					'name' => 'email',
-					'filters' => array (
-							array (
-									'name' => 'StripTags'
-							),
-							array (
-									'name' => 'StringTrim'
-							)
-					),
-					'validators' => array (
-							array (
-									'name' => 'EmailAddress',
-									'options' => array (
-											'messages' => array (
-													'emailAddressInvalidFormat' => 'Email address format is not invalid'
-											)
-									)
-							),
-							array (
-									'name' => 'NotEmpty',
-									'options' => array (
-											'messages' => array (
-													'isEmpty' => 'Email address is required'
-											)
-									)
-							)
-					)
-			) ) );
 
 			$inputFilter->add ( $factory->createInput ( array (
 					'name' => 'nombres',
@@ -192,6 +163,23 @@ class Solicitud extends Form
 					)
 			) ) );
 
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'telefono',
+					'filters' => array(
+							array ( 'name' => 'digits' ),
+							array ( 'name' => 'stringtrim' ),
+					),
+					'validators' => array (
+							array (
+									'name' => 'regex',
+									'options' => array (
+											'pattern' => '/^[\d-\/]+$/',
+									)
+							),
+					)
+			)));
+
+
 			// @todo: posiblemente agregar filtros a los demas campos
 
 			$this->filter = $inputFilter;
@@ -204,5 +192,95 @@ class Solicitud extends Form
 	{
 		throw new \Exception('It is not allowed to set the input filter');
 	}
+
+	public function getNombres()
+	{
+		//@todo: Rescatar los datos de usuario según el usuario de la sesión actual
+
+		$sql       = 'SELECT usuario, nombres FROM usuarios LIMIT 1';
+
+		$statement = $this->dbAdapter->query($sql);
+		$result    = $statement->execute();
+
+		$selectData = array();
+
+		foreach ($result as $res) {
+			// retornar nombre del usuario
+			return $res['nombres'];
+		}
+
+		return FALSE; // no se encontraron resultados
+	}
+
+	public function getApellidos()
+	{
+		//@todo: Rescatar los datos de usuario según el usuario de la sesión actual
+
+		$sql       = 'SELECT usuario, apellidos FROM usuarios LIMIT 1';
+
+		$statement = $this->dbAdapter->query($sql);
+		$result    = $statement->execute();
+
+		$selectData = array();
+
+		foreach ($result as $res) {
+			// retornar nombre del usuario
+			return $res['apellidos'];
+		}
+
+		return FALSE; // no se encontraron resultados
+	}
+
+	public function getMatricula()
+	{
+		//@todo: Rescatar los datos de usuario según el usuario de la sesión actual
+
+		$sql       = 'SELECT usuario, telefono FROM usuarios';
+
+		$statement = $this->dbAdapter->query($sql);
+		$result    = $statement->execute();
+
+		$selectData = array();
+
+		foreach ($result as $res) {
+			$selectData[$res['usuario']] = $res['telefono'];
+		}
+		return $selectData;
+	}
+
+	public function getTelefono()
+	{
+		//@todo: Rescatar los datos de usuario según el usuario de la sesión actual
+
+		$sql       = 'SELECT usuario, telefono FROM usuarios';
+
+		$statement = $this->dbAdapter->query($sql);
+		$result    = $statement->execute();
+
+		$selectData = array();
+
+		foreach ($result as $res) {
+			return $res['telefono'];
+		}
+		return FALSE;
+	}
+
+	public function getCarrera()
+	{
+		//@todo: Rescatar los datos de usuario según el usuario de la sesión actual
+
+		$sql       = 'SELECT usuario, telefono FROM usuarios';
+
+		$statement = $this->dbAdapter->query($sql);
+		$result    = $statement->execute();
+
+		$selectData = array();
+
+		foreach ($result as $res) {
+			$selectData[$res['usuario']] = $res['telefono'];
+		}
+		return $selectData;
+	}
+
 
 }

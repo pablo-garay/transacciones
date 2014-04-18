@@ -48,7 +48,20 @@ return array(
             'Solicitud' => __DIR__ . '/../view',
         ),
     ),
-    
+	'service_manager' => array (
+			'factories' => array(
+					'database' => 'Solicitud\Service\Factory\Database',
+			),
+			'invokables' => array(
+					'table-gateway' => 'Solicitud\Service\Invokable\TableGateway',
+			)
+	),
+	'table-gateway' => array(
+			'map' => array(
+					'solicitudes' => 'Solicitud\Model\Solicitud',
+			)
+	),
+
     // Below is the menu navigation for this module
 	'navigation' => array(
 		'default' => array(

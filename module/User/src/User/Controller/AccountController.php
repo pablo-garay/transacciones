@@ -27,7 +27,7 @@ class AccountController extends AbstractActionController
             	//$model = new UserModel();
             	// Or if you have many db tables that do need special treatment of the incoming data
             	// you can use the table gateway service
-            	$model = $this->serviceLocator->get('table-gateway')->get('users');
+            	$model = $this->serviceLocator->get('table-gateway')->get('usuarios');
             	$id = $model->insert($form->getData());
 
             	$this->flashmessenger()->addSuccessMessage('Cuenta creada satisfactoriamente.');
