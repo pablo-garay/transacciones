@@ -18,7 +18,7 @@ class User extends AbstractTableGateway
 	{
 		unset($set['contrasena_verify']);
 		$set['contrasena'] = md5($set['contrasena']); // better than clear text
-												  //passwords
+												 	 // passwords
 		return parent::insert($set);
 	}
 }

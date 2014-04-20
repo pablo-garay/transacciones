@@ -59,6 +59,7 @@ return array(
 	'table-gateway' => array(
 			'map' => array(
 					'solicitudes' => 'Solicitud\Model\Solicitud',
+					'solicitudExtraordinario' => 'Solicitud\Model\SolicitudExtraordinario',
 			)
 	),
 

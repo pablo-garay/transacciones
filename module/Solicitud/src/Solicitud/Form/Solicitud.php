@@ -95,7 +95,7 @@ class Solicitud extends Form
         		),
         		'attributes' => array (
         				'value' => $this->getTelefono(), // @todo getphone
-        				'disabled' => 'disabled'
+        				//'disabled' => 'disabled'
         		),
 
         ));
@@ -134,7 +134,7 @@ class Solicitud extends Form
 									'name' => 'NotEmpty',
 									'options' => array (
 											'messages' => array (
-													'isEmpty' => 'Name is required'
+													'isEmpty' => 'Nombre requerido'
 											)
 									)
 							)
@@ -156,7 +156,46 @@ class Solicitud extends Form
 									'name' => 'NotEmpty',
 									'options' => array (
 											'messages' => array (
-													'isEmpty' => 'Name is required'
+													'isEmpty' => 'Apellido requerido'
+											)
+									)
+							)
+					)
+			) ) );
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'matricula',
+					'filters' => array (
+							array (
+									'name' => 'StripTags'
+							),
+							array (
+									'name' => 'StringTrim'
+							)
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+							)
+					)
+			) ) );
+
+			$inputFilter->add ( $factory->createInput ( array (
+					'name' => 'carrera',
+					'filters' => array (
+							array (
+									'name' => 'StripTags'
+							),
+							array (
+									'name' => 'StringTrim'
+							)
+					),
+					'validators' => array (
+							array (
+									'name' => 'NotEmpty',
+									'options' => array (
+											'messages' => array (
+													'isEmpty' => 'Carrera requerida'
 											)
 									)
 							)
@@ -243,7 +282,7 @@ class Solicitud extends Form
 		$selectData = array();
 
 		foreach ($result as $res) {
-			$selectData[$res['usuario']] = $res['telefono'];
+			$selectData[$res['telefono']] = $res['telefono'];
 		}
 		return $selectData;
 	}
@@ -277,7 +316,7 @@ class Solicitud extends Form
 		$selectData = array();
 
 		foreach ($result as $res) {
-			$selectData[$res['usuario']] = $res['telefono'];
+			$selectData[$res['telefono']] = $res['telefono'];
 		}
 		return $selectData;
 	}

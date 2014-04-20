@@ -14,14 +14,15 @@ class AccountController extends AbstractActionController
 
 	public function addAction()
     {
-        $form = new UserForm();
+        $form = new UserForm(); // instanciar form
+
         if($this->getRequest()->isPost()) {
             $data = array_merge_recursive(
                 $this->getRequest()->getPost()->toArray(),
                 // Notice: make certain to merge the Files also to the post data
                 $this->getRequest()->getFiles()->toArray()
             );
-            $form->setData($data);
+            $form->setData($data); // setear datos llenados por usuario al form
             if($form->isValid()) {
             	// You can use the standard way of instantiating a table gateway
             	//$model = new UserModel();
@@ -32,7 +33,7 @@ class AccountController extends AbstractActionController
 
             	$this->flashmessenger()->addSuccessMessage('Cuenta creada satisfactoriamente.');
 
-            	// redirect the user to the view user action
+            	// redirect the user to the log in action
             	return $this->redirect()->toRoute('user/default', array (
 	            	    'controller' => 'log',
 	            	    'action'     => 'in',

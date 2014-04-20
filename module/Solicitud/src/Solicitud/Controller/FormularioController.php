@@ -12,6 +12,7 @@ namespace Solicitud\Controller;
 use Solicitud\Form\SolicitudExtraordinario as ExtraordinarioForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Solicitud\Service\Factory\Database as DatabaseAdapter;
+use Solicitud\Model\Solicitud as SolicitudModel;
 
 class FormularioController extends AbstractActionController
 {
@@ -27,7 +28,8 @@ class FormularioController extends AbstractActionController
     	//llamamos al metodo que nos devuelve el adaptador de bd
     	$dbAdapter = $database->createService($this->getServiceLocator());
 
-        $form = new ExtraordinarioForm($dbAdapter);
+        $form = new ExtraordinarioForm($dbAdapter); // instanciar formulario
+
         if($this->getRequest()->isPost()) {
             $data = array_merge_recursive(
                 $this->getRequest()->getPost()->toArray(),
@@ -42,16 +44,26 @@ class FormularioController extends AbstractActionController
             	// you can use the table gateway service
                 // @todo: guardar la solicitud en DB
 
-/*             	$model = $this->serviceLocator->get('table-gateway')->get('users');
-            	$id = $model->insert($form->getData()); */
+            	$info = $form->getData(); //The form's getData returns an array of key/value pairs
+
+            	$solicitudesModel = $this->serviceLocator->get('table-gateway')->get('solicitudes');
+            	$id = $solicitudesModel->insert($info); // @todo valor id: posible problema de concurrencia
+            	$info['solicitud'] = $id; //id de solicitud insertada
+
+            	$extraordModel = $this->serviceLocator->get('table-gateway')->get('solicitudExtraordinario');
+            	$extraordModel->insert($info);
 
             	$this->flashmessenger()->addSuccessMessage('Solicitud enviada');
 
-            	// redirect the user to the view user action
+            	// redirect the user to its account home page
             	return $this->redirect()->toRoute('user/default', array (
-	            	    'controller' => 'log',
-	            	    'action'     => 'in',
+	            	    'controller' => 'account',
+	            	    'action'     => 'me',
             	));
+            } else {
+            	// debug code -- borrar despues!
+            	$this->flashmessenger()->addSuccessMessage('no enviada');
+            	$messages = $form->getMessages();
             }
         }
 
