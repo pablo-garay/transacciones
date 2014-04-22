@@ -372,7 +372,7 @@ class ActorController extends AbstractActionController
 
 		$form = new ResultadoRequisitosForm($dbAdapter);
 
-		$sql = 	's.solicitud as solicitud, mesa_entrada, fecha_solicitada, resultado_requisitos, nombres, apellidos, carrera, telefono, email,
+		$sql = 	'SELECT s.solicitud as solicitud, mesa_entrada, fecha_solicitada, resultado_requisitos, nombres, apellidos, carrera, telefono, email,
 		materia, fecha_extraordinario, motivo, archivo, cumple_fecha, inscripto_tercera_op, ausente_tercera_op
 		FROM usuarios as u INNER JOIN solicitudes as s ON (u.usuario = s.usuario_solicitante)
 		INNER JOIN solicitud_de_extraordinario as se ON (s.solicitud = se.solicitud)
