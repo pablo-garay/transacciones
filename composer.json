@@ -12,7 +12,9 @@
         "zendframework/zendframework": "2.*",
         "dino/dompdf-module": "dev-master", 
         "goalio/goalio-mailservice": "dev-master",
-        "goalio/goalio-forgotpassword": "0.*"
+        "goalio/goalio-forgotpassword": "0.*",
+        "zf-commons/zfc-admin": "0.1.*",
+        "danielss89/zfc-user-admin": "dev-master"
     },
     "require-dev": {
     	"phpunit/phpunit" : "3.7.*"

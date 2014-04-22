@@ -6,6 +6,8 @@ return array(
     	'Debug',
         'ZfcBase',
         'ZfcUser',
+        'ZfcAdmin',
+        'ZfcUserAdmin',
     	//'User',
         'Solicitud','Solicitud',
         'Visualize',

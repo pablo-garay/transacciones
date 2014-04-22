@@ -55,13 +55,13 @@ return array(
 			array(
 				'label' => 'Visualize',
 				'route' => 'visualize/default',
-				'controller'=> 'index',
+				'controller'=> 'visualize',
 				'pages' => array(
 					array(
 						'label' => 'Visualizar solicitud',
 						'route' => 'visualize/default',
-						'controller' => 'index',
-						'action' => 'create',
+						'controller' => 'visualize',
+						'action' => 'index',
 						'resource' => 'visualize',
 						'privilege' => 'create',
 					),

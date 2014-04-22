@@ -149,7 +149,7 @@ $html =
   
   <body>
     <div class="gwd-div-pncg">
-       <h3><span class="gwd-span-nzt4">Solicitud de extraordinario</span></h3>
+       <h3><span class="gwd-span-nzt4">Solicitud de ruptura de correlatividad</span></h3>
 
     </div>
     <div class="gwd-div-7d25"><span class="gwd-span-wh5c">Fecha: '.$fechaSol.'&nbsp;</span>
@@ -172,7 +172,7 @@ $html =
       <div><span class="gwd-span-hfs3">con el siguiente motivo: '.$motivoRC.'.</span>
 
       </div>
-      <div><span class="gwd-span-k312">Acompana a la solicitud: '.$motivoRC.'</span>
+      <div><span class="gwd-span-k312">Acompana a la solicitud: '.$adjuntoRC.'</span>
 
       </div>
     </div>
@@ -198,4 +198,4 @@ $pdf = $dompdf->output();
 file_put_contents("PDF/ruptura.pdf", $pdf);
 ?>
 
-<embed src = "file:///C:/Users/azo/Documents/GitHub/transacciones/PDF/ruptura.pdf" width = 800px height = 2100px>
+<embed src = "file:///C:/Users/azo/Documents/GitHub/transacciones/PDF/ruptura.pdf" width = 800px height = 1100px>
