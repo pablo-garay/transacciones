@@ -1,0 +1,201 @@
+<?php
+require_once('vendor/dompdf/dompdf/dompdf_config.inc.php');
+/*
+$html =
+'<h3>Solicitud de ruptura de correlatividad</h3>
+Fecha:'.$fechaSol.'<br/>
+Nombres: '.$nombreSol. '<br/>
+Apellidos: '.$apellidoSol.' <br/>
+Matricula: '.$matriculaSol.' <br/>
+Carrera: '.$carreraSol.' <br/>
+
+Solicita al señor Director académico, la ruptura de correlatividad de la materia '.$materiaRC.' <br/>
+con el siguiente motivo: '.$motivoRC.'<br/>
+Acompaña a la solicitud: '.$adjuntoRC.'<br/><br/><br/>
+<ul><ul><ul><ul><ul>____________________________<br/>
+<ul>FIRMA DEL '.$firma.'/A</ul></ul></ul></ul></ul></ul>';
+*/
+
+$html =
+'<!DOCTYPE html>
+<html>
+  
+  <head data-gwd-animation-mode="quickMode">
+    <title>Solicitud de extraordinario</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="generator" content="Google Web Designer 1.0.5.0416">
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+      }
+      body {
+        background-color: transparent;
+        -webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+      }
+      .gwd-div-pncg {
+        position: absolute;
+        left: 17px;
+        top: 20px;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+      }
+      .gwd-span-nzt4 {
+        font-family: Arial;
+        font-size: 25px;
+      }
+      .gwd-div-7d25 {
+        position: absolute;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+        left: 17px;
+        top: 124px;
+      }
+      .gwd-div-fgr4 {
+        position: absolute;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+        left: 17px;
+        top: 235px;
+      }
+      .gwd-div-u0te {
+        position: absolute;
+        left: 465px;
+        top: 358px;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+      }
+      .gwd-div-n1bw {
+        position: absolute;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+        left: 465px;
+        top: 358px;
+      }
+      .gwd-div-7361 {
+        position: absolute;
+        font-family:\'Times New Roman\';
+        text-align: left;
+        color: rgb(0, 0, 0);
+        left: 701.9px;
+        top: 299px;
+      }
+      .gwd-div-3uct {
+        position: absolute;
+        font-family:\'Times New Roman\';
+        color: rgb(0, 0, 0);
+        left: -36px;
+        top: -21px;
+      }
+      .gwd-div-gr7d {
+        -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        -webkit-transform-style: preserve-3d;
+        font-family:\'Times New Roman\';
+      }
+      .gwd-div-q5s9 {
+        font-family:\'Times New Roman\';
+      }
+      .gwd-div-ixiw {
+        font-family:\'Times New Roman\';
+      }
+      .gwd-div-9oyz {
+        font-family:\'Times New Roman\';
+      }
+      .gwd-span-wh5c {
+        font-family: Arial;
+        font-weight: bold;
+      }
+      .gwd-span-psu2 {
+        font-family: Arial;
+        font-weight: bold;
+      }
+      .gwd-span-zrn0 {
+        font-family: Arial;
+        font-weight: bold;
+      }
+      .gwd-span-a62r {
+        font-family: Arial;
+        font-weight: bold;
+      }
+      .gwd-span-jcjy {
+        font-family: Arial;
+        font-weight: bold;
+      }
+      .gwd-span-qi6f {
+        font-weight: bold;
+        font-family: Arial;
+      }
+      .gwd-span-vg2h {
+        font-family: Arial;
+      }
+      .gwd-span-iqyd {
+        font-family: Arial;
+      }
+      .gwd-span-hfs3 {
+        font-family: Arial;
+      }
+      .gwd-span-k312 {
+        font-family: Arial;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="gwd-div-pncg">
+       <h3><span class="gwd-span-nzt4">Solicitud de extraordinario</span></h3>
+
+    </div>
+    <div class="gwd-div-7d25"><span class="gwd-span-wh5c">Fecha: '.$fechaSol.'&nbsp;</span>
+
+      <div class="gwd-div-gr7d"><span class="gwd-span-psu2">Nombres y Apellidos: '.$nombreSol.' '.$apellidoSol.'&nbsp;</span>
+
+      </div>
+      <div class="gwd-div-q5s9"><span class="gwd-span-zrn0">Matricula: '.$matriculaSol.'</span>
+
+      </div>
+      <div class="gwd-div-ixiw"><span class="gwd-span-a62r">Carrera: '.$carreraSol.'</span>
+
+      </div>
+      <div class="gwd-div-9oyz"><span class="gwd-span-jcjy">Telefono/Celular: '.$telefonoSol.'</span>
+
+      </div>
+    </div>
+    <div class="gwd-div-fgr4"><span class="gwd-span-vg2h">Solicita al señor Director académico, la ruptura de correlatividad de la asignatura '.$materiaRC.'</span>
+
+      <div><span class="gwd-span-hfs3">con el siguiente motivo: '.$motivoRC.'.</span>
+
+      </div>
+      <div><span class="gwd-span-k312">Acompana a la solicitud: '.$motivoRC.'</span>
+
+      </div>
+    </div>
+    <div class="gwd-div-u0te"><span class="gwd-span-qi6f">Firma del alumno/a</span>
+
+    </div>
+    <div class="gwd-div-n1bw">
+      <div class="gwd-div-3uct">________________________</div>
+    </div>
+    <div class="gwd-div-7361"></div>
+  </body>
+
+</html>';
+
+//echo $html;
+
+//generacion del pdf
+$dompdf = new DOMPDF();
+$dompdf->load_html($html);
+$dompdf->render();
+$pdf = $dompdf->output();
+//$dompdf->stream("my_pdf.pdf", array("Attachment" => 0));
+file_put_contents("PDF/ruptura.pdf", $pdf);
+?>
+
+<embed src = "file:///C:/Users/azo/Documents/GitHub/transacciones/PDF/ruptura.pdf" width = 800px height = 2100px>

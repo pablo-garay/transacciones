@@ -8,6 +8,9 @@ return array(
         'ZfcUser',
     	//'User',
         'Solicitud','Solicitud',
+        'Visualize',
+        'GoalioMailService',
+        'GoalioForgotPassword',
         'Usuarios',
     ),
 
