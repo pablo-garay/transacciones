@@ -36,27 +36,26 @@ class Solicitud extends Form
         				'label' => 'Nombres', // Label es la etiqueta que aparece antes del campo de formulario
         		),
 
-        ),
-        		 array (
-                        'priority' => 500,
-                ));
+        )
+        , array (
+        		'priority' => 700,
+        ));
 
-        $this->add(array(
-        		'name' => 'apellidos',
-        		'type' => 'Zend\Form\Element\Text',
-        		'attributes' => array(
-        				'placeholder' => 'Escriba su apellido...',
-        				'required' => 'required',
-        				'value' => $this->getApellidos(),
-        		),
-        		'options' => array(
-        				'label' => 'Apellidos',
-        		),
-
-        ),
-        		 array (
-                        'priority' => 600,
-                ));
+		$this->add ( array (
+				'name' => 'apellidos',
+				'type' => 'Zend\Form\Element\Text',
+				'attributes' => array (
+						'placeholder' => 'Escriba su apellido...',
+						'required' => 'required',
+						'value' => $this->getApellidos ()
+				),
+				'options' => array (
+						'label' => 'Apellidos'
+				)
+		)
+		, array (
+				'priority' => 600,
+        ) );
 
         $this->add(array(
         		'name' => 'matricula',
@@ -70,21 +69,26 @@ class Solicitud extends Form
         		        'placeholder' => 'Elija su matrícula...',
         				'required' => 'required',
         		),
-        ));
+        )
+        , array (
+        		'priority' => 500,
+        ) );
 
-        $this->add(array(
-        		'name' => 'carrera',
-        		'type' => 'Zend\Form\Element\Select',
-        		'options' => array(
-        				'label' => 'Carrera',
-            		    'value_options' => $this->getCarrera(),
-        		),
-        		'attributes' => array(
-        				// Below: HTML5 way to specify that the input will be phone number
-        				'placeholder' => 'Elija su carrera...',
-        				'required' => 'required',
-        		),
-        ));
+		$this->add ( array (
+				'name' => 'carrera',
+				'type' => 'Zend\Form\Element\Select',
+				'options' => array (
+						'label' => 'Carrera',
+						'value_options' => $this->getCarrera ()
+				),
+				'attributes' => array (
+						// Below: HTML5 way to specify that the input will be phone number
+						'placeholder' => 'Elija su carrera...',
+						'required' => 'required'
+				)
+		), array (
+				'priority' => 400,
+		) );
 
         $this->add(array(
         		'name' => 'telefono',
@@ -98,7 +102,9 @@ class Solicitud extends Form
         				//'disabled' => 'disabled'
         		),
 
-        ));
+		), array (
+				'priority' => 300,
+		) );
 
 
 

@@ -1,0 +1,79 @@
+<h4  style="
+	margin: 1em 20px;
+	padding: 10px;
+
+	background-color: #f2f2f2;
+	color: #555;
+	font-size: 140%;
+	text-align: center;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	-webkit-border-radius: 200px; "> 
+	SOLICITUD DE EXAMEN EXTRAORDINARIO </h4>
+<?php
+// We call the prepare here in order to fill the initial data and adjust the form properties, if needed
+$this->form1->setAttribute('class', 'form-horizontal');
+$this->form1->prepare();
+
+echo $this->form()->openTag($this->form1);
+echo '<fieldset>';
+
+foreach ($this->form1 as $element) {
+    if (! ($element instanceof Zend\Form\Element\Submit)) {
+
+ 
+?>
+	<div class="control-group">
+	<label class="control-label" for="<?= $element->getName() ?>"><?= $this->translate($element->getLabel()) ?></label>
+	<div class="controls">
+            <?= $this->formElement($element)?>
+            <?= $this->formElementErrors($element)?>
+	    </div>
+	 </div>
+
+<?php 
+
+		
+        ?>
+	
+
+
+<?php
+	if ( ($element->getName() == 'Email')) {
+?>
+	<h4 align = 'left'> Solicita al Señor Decano, examen extraordinario de la:</h4>
+<?php 
+	echo "\n";
+	}
+	else if ( ($element->getName() == 'Resultado_requisitos')) {
+?>
+	<h4 align="center"> Con todo respeto. </h4>
+<?php 
+    }
+    } else {
+       
+        
+        if ($element->getName() == "enviar"){
+			echo sprintf('<p align = "center">');
+			echo $this->formRow($element->setAttribute('class', 'btn btn-primary'));
+
+        }else if ($element->getName() == "cancelar"){
+        		echo $this->formRow($element->setAttribute('class', 'btn btn-primary')); 	
+        		echo sprintf('</p>');
+        	}
+        ?>
+
+<?php
+    }
+    if ( ($element->getName() == 'Email')){
+    	?>
+    				
+    				<?php
+    		}
+}
+
+echo '</fieldset>';
+echo $this->form()->closeTag();
+?>

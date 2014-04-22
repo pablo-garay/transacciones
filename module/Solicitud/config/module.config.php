@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             // below is key                      and below is the fully qualified class name
             'Solicitud\Controller\Formulario' => 'Solicitud\Controller\FormularioController',
+        	'Solicitud\Controller\Actor' 	  => 'Solicitud\Controller\ActorController',
         ),
     ),
     'router' => array(
@@ -39,6 +40,20 @@ return array(
                             ),
                         ),
                     ),
+                	'list' => array(
+                		'type'    => 'Segment',
+                		'options' => array (
+                			'route' => '/formulario/list[/:page]',
+                			'constraints' => array(
+                					'page'     => '[0-9]*',
+                			),
+                			'defaults' => array(
+                				'controller'    => 'Formulario',
+                				'action'        => 'list',
+                				'page'          => '1',
+                			),
+                		)
+                	)
                 ),
             ),
         ),
@@ -78,6 +93,13 @@ return array(
 						'action' => 'create',
 						'resource' => 'formulario',
 						'privilege' => 'create',
+					),
+					array(
+						'label' => 'Lista',
+						'route' => 'solicitud/list',
+// 						// acl
+// 						'resource'   => 'test',
+// 						'privilege'  => 'list',
 					),
 				)
 			)

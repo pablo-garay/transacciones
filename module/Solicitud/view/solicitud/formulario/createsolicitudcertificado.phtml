@@ -1,0 +1,60 @@
+<h4 align="center"> SOLICITUD DE CERTIFICADO DE ESTUDIOS </h4>
+
+<h5 align="left"> Decano <br> Facultad de Ciencias y Tecnología <br> UNIVERSIDAD CATÓLICA <br>
+De mi consideración: <br> Es objeto de la presente, solicitar a usted se me expida un certificado de estudios. <br>
+<br>DATOS PERSONALES</h5>
+<?php
+// We call the prepare here in order to fill the initial data and adjust the form properties, if needed
+$this->form1->setAttribute('class', 'form-horizontal');
+$this->form1->prepare();
+
+echo $this->form()->openTag($this->form1);
+echo '<fieldset>';
+
+foreach ($this->form1 as $element) {
+    if (! ($element instanceof Zend\Form\Element\Submit)) {
+        ?>
+<div class="control-group">
+	<label class="control-label" for="<?= $element->getName() ?>"><?= $this->translate($element->getLabel()) ?></label>
+	<div class="controls">
+            <?= $this->formElement($element)?>
+            <?= $this->formElementErrors($element)?>
+	    </div>
+</div>
+<?php
+	if ( ($element->getName() == 'Email')) {
+?>
+	<h5 align = 'left'> DATOS ACADÉMICOS</h5>
+<?php 
+	echo "\n";
+	}
+	else if ( ($element->getName() == 'Carrera_cursada')) {
+?>
+	<h5 align="left"> DATOS ADMINISTRATIVOS </h5>
+<?php 
+    } else if ( ($element->getName() == 'Tipo_de_certificado')){
+?>
+	<h5 align="left"> SOLICITA TÍTULO DE </h5>
+<?php 
+	} else if ( ($element->getName() == 'Tipo_de_titulo')){
+?>
+	<h5 align="left"> Solicité Certificados de Estudios Anteriormente</h5>
+<?php 
+	} else if ( ($element->getName() == 'Aclaraciones')){
+?>
+	<h5 align="center"> Sin otro particular me despido atentamente </h5>
+<?php 
+	}
+    } else {
+        $element->setAttribute('class', 'btn btn-primary');
+?>
+<div class="form-actions">
+<?=$this->formelement($element)?>
+    </div>
+<?php
+    }
+}
+
+echo '</fieldset>';
+echo $this->form()->closeTag();
+?>

@@ -1,0 +1,108 @@
+<style type=”text/css” media=”screen”>
+.texto1 {
+color:black;
+background:#aaa;
+padding:20px 80px;
+text-shadow: 1px 1px 0 white, -1px -1px white, 1px -1px white, -1px 1px white, 0 1px white, 1px 0 white, -1px 0 white, 0 -1px white, -25px 0 #bbb, 25px 0 #b8b8b8;
+
+}</style>
+
+<h4  style="
+	margin: 1em 20px;
+	padding: 10px;
+
+	background-color: #f2f2f2;
+	color: #555;
+	font-size: 140%;
+	text-align: center;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	-webkit-border-radius: 200px; ">
+	SOLICITUD DE EXAMEN EXTRAORDINARIO </h4>
+
+   <?php
+    foreach ($this->data as $keyControl => $element) {
+    	if ($keyControl != 'form1'){
+	    	foreach ($element as $key => $value) {
+
+	   		if ($key == 'mesa_entrada'){
+	    		echo sprintf($this->translate('<h5 align="center"><b>Mesa de Entrada:</b> %s &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp'), $value);
+
+	     	}else if ($key == 'fecha_solicitada'){
+				echo sprintf($this->translate('<b>Fecha:</b> %s <br></h5>'), $value);
+
+			}else if ($key == 'nombres') {
+				?>
+				<h5 align = "left"> DATOS DEL ALUMNO</h5><pre><?php
+				echo sprintf($this->translate('<b>Nombres:</b> %s		'), $value);
+
+			}else if ($key == 'apellidos') {
+				echo sprintf($this->translate('<b>Apellidos:</b> %s		'), $value);
+
+			}else if ($key == 'carrera') {
+				echo sprintf($this->translate('<b>Carrera:</b> %s <br>'), $value);
+
+			}else if ($key == 'telefono') {
+				echo sprintf($this->translate('<b>Teléfono:</b> %s	'), $value);
+
+			}else if ($key == 'email') {
+				echo sprintf($this->translate('<b>Email:</b> %s'), $value);
+				?></pre><h5 align = "left"> DATOS DE LA SOLICITUD</h5><pre><?php
+			}else if ($key == 'materia') {
+				echo sprintf($this->translate('<b>Asignatura:</b> %s <br>'), $value);
+
+			}else if ($key == 'fecha_extraordinario') {
+				echo sprintf($this->translate('<b>Fecha de Examen:</b> %s	'), $value);
+
+			}else if ($key == 'motivo') {
+				echo sprintf($this->translate('<b>Justificación: </b> %s	'), $value);
+
+			}else if ($key == 'archivo') {
+				echo sprintf($this->translate('<b>Documento Adjunto:</b> %s <br>'), $value);
+
+			}else if ($key == 'cumple_fecha') {
+				?></pre><h5 align = "left"> REQUISITOS DE LA SOLICITUD</h5><pre><?php
+				echo sprintf($this->translate('<b>Plazo de 5 días para la presentación de la solicitud:</b> %s <br>'), $value);
+
+			}else if ($key == 'inscripto_tercera_op') {
+				echo sprintf($this->translate('<b>Inscripto en tercera oprotunidad:</b> %s <br>'), $value);
+
+			}else if ($key == 'ausente_tercera_op') {
+				echo sprintf($this->translate('<b>Ausente en tercera oportunidad:</b> %s '), $value);
+
+			}else if ($key == 'resultado_requisitos') {
+				//if(! strcmp($value, 'CUMPLE')){
+					$value = 'APROBADA';
+				//}
+				echo sprintf($this->translate('<h4  style="
+color:black;
+background:#aaa;
+padding:20px 80px;
+text-shadow: 1px 1px 0 white, -1px -1px white, 1px -1px white, -1px 1px white, 0 1px white, 1px 0 white, -1px 0 white, 0 -1px white, -25px 0 #bbb, 25px 0 #b8b8b8;
+ ">RESULTADO DE LA SOLICITUD: %s </h4>'), $value);
+
+				}
+
+	    	}
+    	}
+
+   }
+   ?></pre><pre>
+   <?php
+   $this->form1->setAttribute('class', 'form-horizontal');
+   $form = $this->form1;
+   $form->prepare();
+
+   echo $this->form()->openTag($form);
+
+ //  setAttribute('class', 'btn btn-primary');
+   echo sprintf("						");
+   echo $this->formRow($form->get('Salir')->setAttribute('class', 'btn btn-primary'));
+   echo sprintf(" ");
+   echo $this->formRow($form->get('Imprimir')->setAttribute('class', 'btn btn-primary'));
+
+   echo $this->form()->closeTag();
+
+   ?></pre>

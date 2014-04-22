@@ -1,0 +1,72 @@
+<h4 align="center"> SOLICITUD DE COLABORADOR DE CÁTEDRA </h4>
+
+
+<?php
+// We call the prepare here in order to fill the initial data and adjust the form properties, if needed
+$this->form1->setAttribute('class', 'form-horizontal');
+$this->form1->prepare();
+
+echo $this->form()->openTag($this->form1);
+echo '<fieldset>';
+
+foreach ($this->form1 as $element) {
+    if (! ($element instanceof Zend\Form\Element\Submit)) {
+        ?>
+<div class="control-group">
+	<label class="control-label" for="<?= $element->getName() ?>"><?= $this->translate($element->getLabel()) ?></label>
+	<div class="controls">
+            <?= $this->formElement($element)?>
+            <?= $this->formElementErrors($element)?>
+	    </div>
+</div>
+<?php 
+	if ( ($element->getName() == 'Fecha_solicitada')) {
+?>
+<h5 align="left"> Decano <br> Facultad de Ciencias y Tecnología <br> UNIVERSIDAD CATÓLICA <br></h5>
+
+
+<h5 align ="left"> De mi consideración <br>
+El que suscribe,  </h5>
+<?php
+	}else if ( ($element->getName() == 'Profesor')) {
+?>
+	<h5 align = 'left'>, en calidad de profesor/a cuyo nombramiento fue propuesto <br>
+	por le Consejo de Facultad para el presente semestre lecctivo en la asignatura:</h5>
+<?php 
+	echo "\n";
+	}
+	else if ( ($element->getName() == 'Asignatura')) {
+?>
+	<h5 align="left"> de la/s carrera/s: </h5>
+<?php 
+    } else if ( ($element->getName() == 'Carreras_profesor')){
+?>
+	<h5 align="left"> se dirige a usted con el fin de solicitar el otorgamiento de un/a <br>
+	Alumno/a Colaborador/a de Cátedra. <br>
+	En tal sentido, propongo a:</h5>
+<?php 
+	} else if ( ($element->getName() == 'Email')){
+?>
+	<h5 align="left"> como Alumno/a Colaborador/a de Cátedra, para el presente semestre lectivo <br>
+	en la asignatura de referencia. <br>
+	Las actividades que serán desarrolladas por el Alumno/a Colaborador/a de Cátedra son las <br>
+	son las siguientes: </h5>
+<?php 
+	} else if ( ($element->getName() == 'Descripcion_actividades')){
+?>
+	<h5 align="center"> Atentamente </h5>
+<?php 
+	}
+    } else {
+        $element->setAttribute('class', 'btn btn-primary');
+?>
+<div class="form-actions">
+<?=$this->formelement($element)?>
+    </div>
+<?php
+    }
+}
+
+echo '</fieldset>';
+echo $this->form()->closeTag();
+?>
